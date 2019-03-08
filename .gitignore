@@ -3,3 +3,4 @@
 .project
 /.settings/
 .DS_Store
+/src/main/resources/db.properties
