@@ -16,6 +16,13 @@ public class Item {
 	public Item(String name, String url, List<SubItem> subItems) {
 		this(true, false, name, url, subItems);
 	}
+	
+	public Item(String name, String url, List<SubItem> subItems,String active) {
+		this(true, false, name, url, subItems);
+		if(this.name.equals(active)) {
+			this.setActive(true);
+		}
+	}
 
 	public Item(Boolean dropdown, Boolean active, String name, String url, List<SubItem> subItems) {
 		super();

@@ -19,6 +19,10 @@ public class UserDTO {
 		this.password = password;
 		this.rid = 0; //默认角色
 	}
+	
+	public Boolean checkPassword(String password) {
+		return this.password == password;
+	}
 
 
 

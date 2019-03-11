@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<div class="footer" style="margin-top:150px;">
+<div class="footer" style="position:fixed;bottom:0;width:100%;">
 	<div class="pull-right">
 		<a href="${pageContext.request.contextPath}/" target="_blank">多媒体远程培训系统</a>
 	</div>

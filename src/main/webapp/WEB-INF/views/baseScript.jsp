@@ -27,3 +27,46 @@
 
 <!-- Peity demo -->
 <script src="${pageContext.request.contextPath}/js/demo/peity-demo.js"></script>
+<!-- Toastr script -->
+<script
+	src="${pageContext.request.contextPath}/js/plugins/toastr/toastr.min.js"></script>
+
+<script type="text/javascript">
+	BASE_URL = '${pageContext.request.contextPath}/'
+	function formData(form) {
+		var data = {};
+		var t = $(form).serializeArray();
+		$.each(t, function() {
+			data[this.name] = this.value;
+		});
+		return data;
+	}
+	function request(obj) {
+		if (!obj.url) {
+			console.error("request params error - url required!")
+		}
+		$.ajax({
+			type : obj.method ? obj.method : "GET",
+			url : BASE_URL + obj.url,
+			data : obj.data,
+			dataType : "json",
+			success : function(data) {
+				if (data.desc == 'success') {
+					obj.success(data.data)
+				} else {
+					obj.error(data.desc)
+				}
+			},
+			error : function(err) {
+				obj.exception(err)
+			}
+		});
+	}
+
+	toastr.options = {
+		closeButton : true,
+		debug : false,
+		progressBar : true,
+		positionClass : 'toast-top-center'
+	};
+</script>

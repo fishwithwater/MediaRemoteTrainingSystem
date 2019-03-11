@@ -19,4 +19,6 @@ public class UserController {
 		ResultDTO res = new ResultDTO();
 		return res;
 	}
+	
+	
 }

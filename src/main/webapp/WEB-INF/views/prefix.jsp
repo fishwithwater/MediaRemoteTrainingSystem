@@ -8,7 +8,7 @@
 	Header header = (Header) request.getAttribute("header");
 	List<Item> itemList = header.getItems();
 %>
-<div class="row border-bottom white-bg" style="margin-bottom: 50px;">
+<div class="row border-bottom white-bg" style="position:fixed;top:0;width:100%;">
 	<nav class="navbar navbar-static-top" role="navigation">
 		<div class="navbar-header">
 			<button aria-controls="navbar" aria-expanded="false"
