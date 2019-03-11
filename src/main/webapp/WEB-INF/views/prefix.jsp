@@ -1,3 +1,4 @@
+<%@page import="cn.edu.xzit.mrts.DTO.UserDTO"%>
 <%@page import="cn.edu.xzit.mrts.header.SubItem"%>
 <%@page import="java.util.List"%>
 <%@page import="cn.edu.xzit.mrts.header.Item"%>
@@ -8,7 +9,8 @@
 	Header header = (Header) request.getAttribute("header");
 	List<Item> itemList = header.getItems();
 %>
-<div class="row border-bottom white-bg" style="position:fixed;top:0;width:100%;">
+<div class="row border-bottom white-bg"
+	style="position: fixed; top: 0; width: 100%;">
 	<nav class="navbar navbar-static-top" role="navigation">
 		<div class="navbar-header">
 			<button aria-controls="navbar" aria-expanded="false"
@@ -57,9 +59,14 @@
 					<%
 						if (session.getAttribute("user") != null) {
 					%>
-					<li><a href="${pageContext.request.contextPath}/logout"> <i
-							class="fa fa-sign-out"></i> 退出
-					</a></li>
+					<li class="dropdown"><a aria-expanded="false" role="button"
+						href="#" class="dropdown-toggle" data-toggle="dropdown"> <%=((UserDTO) session.getAttribute("user")).getUsername()%>
+							<span class="caret"></span></a>
+						<ul role="menu" class="dropdown-menu">
+							<li><a href="#">个人中心</a></li>
+							<li><a href="${pageContext.request.contextPath}/logout"><i
+									class="fa fa-sign-out"></i>注销</a></li>
+						</ul></li>
 					<%
 						} else {
 					%>

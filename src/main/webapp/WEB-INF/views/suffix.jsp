@@ -5,6 +5,6 @@
 		<a href="${pageContext.request.contextPath}/" target="_blank">多媒体远程培训系统</a>
 	</div>
 	<div>
-		<strong>Copyright</strong> 16软嵌 &copy; 2019
+		<strong>Copyright</strong> 16软嵌 益金虎 陈思宇 陈仁杰 吴洋 &copy; 2019
 	</div>
 </div>

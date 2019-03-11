@@ -3,7 +3,12 @@ package cn.edu.xzit.mrts.header;
 import java.util.Arrays;
 
 public class StaticHeader {
-
+	/**
+	 * 游客显示的头部
+	 * @param label
+	 * @param active
+	 * @return
+	 */
 	public static Header getTouristHeader(String label,String active) {
 		SubItem subItem1 = new SubItem("测试1-1", "test1/1");
 		SubItem subItem2 = new SubItem("测试1-2", "test1/2");

@@ -1,10 +1,15 @@
 # 创建项目数据库的脚本 , 用于初始化数据库，在项目中无实际作用
 # 每次新增表或字段需更新此文件
 
-CREATE DATABASE mrts;
 
+
+SET NAMES utf8;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+--  Table structure for `role`
+-- ----------------------------
 DROP TABLE IF EXISTS `role`;
-
 CREATE TABLE `role` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '',
@@ -12,22 +17,17 @@ CREATE TABLE `role` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-LOCK TABLES `role` WRITE;
-/*!40000 ALTER TABLE `role` DISABLE KEYS */;
+-- ----------------------------
+--  Records of `role`
+-- ----------------------------
+BEGIN;
+INSERT INTO `role` VALUES ('1', '管理员', '1111111111111111111111111111');
+COMMIT;
 
-INSERT INTO `role` (`id`, `name`, `author`)
-VALUES
-	(1,'管理员','1111111111111111111111111111');
-
-/*!40000 ALTER TABLE `role` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table user
-# ------------------------------------------------------------
-
+-- ----------------------------
+--  Table structure for `user`
+-- ----------------------------
 DROP TABLE IF EXISTS `user`;
-
 CREATE TABLE `user` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL DEFAULT '' COMMENT '用户名',
@@ -38,12 +38,11 @@ CREATE TABLE `user` (
   UNIQUE KEY `username_unique` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+-- ----------------------------
+--  Records of `user`
+-- ----------------------------
+BEGIN;
+INSERT INTO `user` VALUES ('1', 'admin', 'admin', '1', '0');
+COMMIT;
 
-INSERT INTO `user` (`id`, `username`, `password`, `rid`, `gid`)
-VALUES
-	(1,'admin','admin',1,0);
-
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
+SET FOREIGN_KEY_CHECKS = 1;

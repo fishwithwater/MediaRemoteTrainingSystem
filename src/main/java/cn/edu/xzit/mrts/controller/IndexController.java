@@ -1,6 +1,10 @@
 package cn.edu.xzit.mrts.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,19 +23,41 @@ public class IndexController {
 	
 	@Autowired
 	private UserService userService;
+	/**
+	 * 主页页面请求
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/",method=RequestMethod.GET)
+	public String index(HttpServletRequest request) {
+		request.setAttribute("header", StaticHeader.getTouristHeader("主页",""));
+		return "index";
+	}
 	
+	/**
+	 * 登录页面请求
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/login",method=RequestMethod.GET)
 	public String login(HttpServletRequest request) {
 		request.setAttribute("header", StaticHeader.getTouristHeader("登录",""));
 		return "login";
 	}
 	
+	/**
+	 * 登录表单请求
+	 * @param username
+	 * @param password
+	 * @return
+	 */
 	@RequestMapping(value = "/login",method=RequestMethod.POST)
 	@ResponseBody
-	public ResultDTO login(String username,String password) {
+	public ResultDTO login(String username,String password,HttpSession session) {
 		ResultDTO res = new ResultDTO();
 		try {
 			UserDTO user = userService.login(username, password);
+			session.setAttribute("user", user);
 			res.success(user);
 		} catch (BaseException e) {
 			// TODO Auto-generated catch block
@@ -39,4 +65,20 @@ public class IndexController {
 		}
 		return res;
 	}
+	
+	/**
+	 * 登出请求
+	 * @param session
+	 * @param response
+	 * @throws IOException
+	 */
+	@RequestMapping(value="/logout")
+	public void logout(HttpSession session,HttpServletResponse response) throws IOException {
+		//清除登录信息
+		if(session.getAttribute("user")!=null) {
+			session.setAttribute("user", null);
+		}
+		response.sendRedirect("/MediaRemoteTrainingSystem/");
+	}
+	
 }

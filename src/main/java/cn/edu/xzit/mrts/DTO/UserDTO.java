@@ -1,11 +1,15 @@
 package cn.edu.xzit.mrts.DTO;
 
+/**
+ * 用户DTO类
+ *
+ */
 public class UserDTO {
 	private Integer id;
 	private String username;
 	private String password;
-	private Integer rid;
-	private Integer gid;
+	private Integer rid;//角色id
+	private Integer gid;//分组id
 	
 	
 	
