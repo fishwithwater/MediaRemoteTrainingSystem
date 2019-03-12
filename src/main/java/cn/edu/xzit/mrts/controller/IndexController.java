@@ -33,15 +33,11 @@ public class IndexController {
 	 * @return
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index(HttpServletRequest request) {
-		UserDTO user = (UserDTO) request.getSession().getAttribute("user");
-		Header header = null;
-		if (user == null) {
-			header = StaticHeader.getTouristHeader("主页", "");
-		} else if (user.getRid() == 1) {
-			header = StaticHeader.getAdminHeader("主页", "");
-		}
-		request.setAttribute("header", header);
+	public String index(HttpSession session) {
+		UserDTO user = (UserDTO) session.getAttribute("user");
+		Integer rid = user == null ? null : user.getRid();
+		Header header = StaticHeader.getHeader(rid, "主页");
+		session.setAttribute("header", header);
 		return "index";
 	}
 
@@ -56,8 +52,10 @@ public class IndexController {
 		HttpSession session = request.getSession();
 		if (session.getAttribute("user") != null) {
 			session.setAttribute("user", null);
+		}else {
+			
 		}
-		request.setAttribute("header", StaticHeader.getTouristHeader("登录", ""));
+		session.setAttribute("header", StaticHeader.getHeader(null, "登录"));
 		return "login";
 	}
 

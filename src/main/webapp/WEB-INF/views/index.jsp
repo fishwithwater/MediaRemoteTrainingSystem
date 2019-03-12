@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>
 	<%
-		Header header = (Header) request.getAttribute("header");
+		Header header = (Header) session.getAttribute("header");
 		out.print(header.getLabel());
 	%>
 </title>

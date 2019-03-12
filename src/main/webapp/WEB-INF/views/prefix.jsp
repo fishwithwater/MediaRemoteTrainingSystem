@@ -6,11 +6,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	Header header = (Header) request.getAttribute("header");
+	Header header = (Header) session.getAttribute("header");
 	List<Item> itemList = header.getItems();
 %>
 <div class="row border-bottom white-bg"
-	style="position: fixed; top: 0; width: 100%;">
+	style="position: fixed; top: 0; width: 100%;z-index:100;">
 	<nav class="navbar navbar-static-top" role="navigation">
 		<div class="navbar-header">
 			<button aria-controls="navbar" aria-expanded="false"
