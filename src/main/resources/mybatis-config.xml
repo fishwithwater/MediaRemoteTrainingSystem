@@ -7,4 +7,9 @@
     <typeAliases>
         <package name="cn.edu.xzit.mrts.DO" />
     </typeAliases>
+     <!-- mybatis分页插件 -->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+        </plugin>
+    </plugins> 
 </configuration>

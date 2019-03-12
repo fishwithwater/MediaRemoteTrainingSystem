@@ -14,11 +14,20 @@
 	<sql id="baseMap">
 		id,username,password,rid,gid
 	</sql>
+	<sql id="baseMapWithoutPassword">
+		id,username,rid,gid
+	</sql>
 
 	<select id="getUserByUsername" parameterType="String" resultMap="User">
 		select
 		<include refid="baseMap"></include>
 		from user where username = #{username}
+	</select>
+	
+	<select id="getUserList" resultMap="User">
+		select
+		<include refid="baseMapWithoutPassword"></include>
+		from user order by id
 	</select>
 
 </mapper>
