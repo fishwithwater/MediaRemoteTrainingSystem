@@ -238,6 +238,9 @@
 				showModal('myAddModal')
 			})
 		}
+		function addSubmit(){
+			
+		}
 	</script>
 </body>
 </html>

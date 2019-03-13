@@ -49,6 +49,7 @@ public class UserController {
 	@ResponseBody
 	public ResultDTO createUser(@RequestBody UserDTO user) {
 		ResultDTO res = new ResultDTO();
+		System.out.println(user);
 		return res;
 	}
 	
