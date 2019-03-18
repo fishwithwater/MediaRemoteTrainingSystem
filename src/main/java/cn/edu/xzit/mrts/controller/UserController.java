@@ -15,6 +15,7 @@ import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion.Static;
 import cn.edu.xzit.mrts.DTO.ResultDTO;
 import cn.edu.xzit.mrts.DTO.UserDTO;
 import cn.edu.xzit.mrts.DTO.UserPaginationDTO;
+import cn.edu.xzit.mrts.exception.BaseException;
 import cn.edu.xzit.mrts.header.StaticHeader;
 import cn.edu.xzit.mrts.service.UserService;
 
@@ -47,8 +48,60 @@ public class UserController {
 	
 	@RequestMapping(value = "/create-user", method = RequestMethod.POST)
 	@ResponseBody
-	public ResultDTO createUser(@RequestBody UserDTO user) {
+	public ResultDTO createUser(UserDTO user) {
 		ResultDTO res = new ResultDTO();
+		
+		try {
+			UserDTO resUser = userService.addUser(user);
+			res.success(resUser);
+		}catch(BaseException e) {
+			res.exception(e);
+		}
+		
+		return res;
+	}
+	
+	@RequestMapping("/info")
+	@ResponseBody
+	public ResultDTO info(Integer userId) {
+		ResultDTO res = new ResultDTO();
+		
+		try {
+			UserDTO user = userService.getUserById(userId);
+			res.success(user);
+		}catch (BaseException e) {
+			res.exception(e);
+		}
+		
+		return res;
+	}
+	
+	@RequestMapping(value="/update",method=RequestMethod.POST)
+	@ResponseBody
+	public ResultDTO update(UserDTO user) {
+		ResultDTO res = new ResultDTO();
+		try {
+			UserDTO resUser = userService.updateUser(user);
+			res.success(resUser);
+		}catch (BaseException e) {
+			res.exception(e);
+		}
+		
+		return res;
+	}
+	
+	@RequestMapping(value="/delete",method=RequestMethod.POST)
+	@ResponseBody
+	public ResultDTO delete(Integer id) {
+		ResultDTO res = new ResultDTO();
+		
+		try {
+			userService.deleteUser(id);
+			res.success(null);
+		}catch (BaseException e) {
+			res.exception(e);
+		}
+		
 		return res;
 	}
 	

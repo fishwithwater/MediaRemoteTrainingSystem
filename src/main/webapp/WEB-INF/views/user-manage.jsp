@@ -70,7 +70,7 @@
 											<div class="form-group">
 												<label class="col-sm-3 control-label">用户名</label>
 												<div class="col-sm-8">
-													<input id="addUsername" type="text" class="form-control">
+													<input id="addUsername" name="username" type="text" class="form-control">
 												</div>
 											</div>
 										</td>
@@ -78,7 +78,7 @@
 											<div class="form-group">
 												<label class="col-sm-3 control-label">密码</label>
 												<div class="col-sm-8">
-													<input id="addPassword" type="password"
+													<input id="addPassword" type="password" name="password"
 														class="form-control">
 												</div>
 											</div>
@@ -89,7 +89,7 @@
 											<div class="form-group">
 												<label class="col-sm-3 control-label">角色</label>
 												<div class="col-sm-8">
-													<select id="addRole" class="form-control">
+													<select id="addRole" class="form-control" name="rid">
 													</select>
 												</div>
 											</div>
@@ -127,7 +127,7 @@
 											<div class="form-group">
 												<label class="col-sm-3 control-label">用户名</label>
 												<div class="col-sm-8">
-													<input id="editUsername" type="text" class="form-control">
+													<input id="editUsername" type="text" class="form-control" name="username">
 												</div>
 											</div>
 										</td>
@@ -136,7 +136,7 @@
 												<label class="col-sm-3 control-label">密码</label>
 												<div class="col-sm-8">
 													<input id="editPassword" type="password"
-														class="form-control" placeholder="不填则不修改密码">
+														class="form-control" name="password">
 												</div>
 											</div>
 										</td>
@@ -146,7 +146,7 @@
 											<div class="form-group">
 												<label class="col-sm-3 control-label">角色</label>
 												<div class="col-sm-8">
-													<select id="editRole" class="form-control">
+													<select id="editRole" class="form-control" name="rid">
 													</select>
 												</div>
 											</div>
@@ -237,6 +237,75 @@
 			initSelectBox('add', function() {
 				showModal('myAddModal')
 			})
+		}
+		function addSubmit(){
+			var data = formData('#addForm')
+			request({
+				url:'user-manage/create-user',
+				method:'POST',
+				data:data,
+				success:function(res){
+					refreshTable('exampleTablePagination')
+					toastr.success('操作成功')
+					closeModal('myAddModal')
+				}
+			})
+		}
+		var editNow;
+		function edit(userId){
+			initSelectBox('edit', function() {
+				request({
+					url:'user-manage/info',
+					data:{
+						userId:userId
+					},
+					success:function(res){
+						editNow = userId;
+						$('#editUsername').val(res.username)
+						$('#editPassword').val(res.password)
+						$('#rid').val(res.rid)
+						showModal('myEditModal')
+					}
+				
+				})
+			})
+		}
+		function editSubmit(){
+			data = formData('#editForm')
+			data['id'] = editNow
+			request({
+				url:'user-manage/update',
+				method:'POST',
+				data:data,
+				success:function(res){
+					refreshTable('exampleTablePagination')
+					toastr.success('操作成功')
+					closeModal('myEditModal')
+				}
+			})
+		}
+		
+		function del(userId){
+			swal({
+                title: "您确定要删除这条信息吗",
+                text: "删除后将无法恢复，请谨慎操作！",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "删除",
+                cancelButtonText: "取消",
+                closeOnConfirm: false
+            }, function () {
+            	request({
+    				url:'user-manage/delete',
+    				method:'POST',
+    				data:{id:userId},
+    				success:function(res){
+    					refreshTable('exampleTablePagination')
+    					swal("删除成功！", "您已经永久删除了这条信息。", "success");
+    				}
+    			})
+            });
 		}
 	</script>
 </body>

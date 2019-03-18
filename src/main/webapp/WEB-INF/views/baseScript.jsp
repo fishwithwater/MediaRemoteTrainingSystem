@@ -17,6 +17,9 @@
 <script
 	src="${pageContext.request.contextPath}/js/plugins/flot/jquery.flot.resize.js"></script>
 
+<!-- Sweet alert -->
+<script src="${pageContext.request.contextPath}/js/plugins/sweetalert/sweetalert.min.js"></script>
+
 <!-- ChartJS-->
 <script
 	src="${pageContext.request.contextPath}/js/plugins/chartJs/Chart.min.js"></script>
@@ -33,6 +36,14 @@
 
 <script type="text/javascript">
 	BASE_URL = '${pageContext.request.contextPath}/'
+
+	toastr.options = {
+		closeButton : true,
+		debug : false,
+		progressBar : true,
+		positionClass : 'toast-top-center'
+	};
+
 	function formData(form) {
 		var data = {};
 		var t = $(form).serializeArray();
@@ -41,11 +52,24 @@
 		});
 		return data;
 	}
-	
+
 	function request(obj) {
 		if (!obj.url) {
 			console.error("request params error - url required!")
 		}
+
+		if (!obj.error) {
+			obj.error = function(msg) {
+				toastr.error(msg)
+			}
+		}
+		
+		if (!obj.exception) {
+			obj.exception = function(msg) {
+				toastr.error(msg)
+			}
+		}
+
 		$.ajax({
 			type : obj.method ? obj.method : "GET",
 			url : BASE_URL + obj.url,
@@ -64,12 +88,6 @@
 		});
 	}
 
-	toastr.options = {
-		closeButton : true,
-		debug : false,
-		progressBar : true,
-		positionClass : 'toast-top-center'
-	};
 	/**
 	 * 初始化表格
 	 * @param tableId 表格id
@@ -83,7 +101,7 @@
 			url : dataUrl, // 获取表格数据的url
 			cache : false, // 设置为 false 禁用 AJAX 数据缓存， 默认为true
 			striped : true, //表格显示条纹，默认为false
-			height : 900,
+			height : 700,
 			pagination : true, // 在表格底部显示分页组件，默认false
 			pageList : [ 10, 15, 20 ], // 设置页面可以显示的数据条数
 			pageSize : 15, // 页面数据条数
@@ -117,7 +135,7 @@
 			url : dataUrl, // 获取表格数据的url
 			cache : false, // 设置为 false 禁用 AJAX 数据缓存， 默认为true
 			striped : true, //表格显示条纹，默认为false
-			height : 900,
+			height : 700,
 			pagination : true, // 在表格底部显示分页组件，默认false
 			pageList : [ 10, 15, 20 ], // 设置页面可以显示的数据条数
 			pageSize : 15, // 页面数据条数
@@ -168,27 +186,29 @@
 	 * @returns {*}
 	 */
 	function getUrlParam(name) {
-	    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
-	    var r = window.location.search.substr(1).match(reg);  //匹配目标参数
-	    if (r != null) return unescape(r[2]);
-	    return null; //返回参数值
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+		var r = window.location.search.substr(1).match(reg); //匹配目标参数
+		if (r != null)
+			return unescape(r[2]);
+		return null; //返回参数值
 	}
 
-
 	function verifyParam(obj, cb) {
-	    var flag = true
-	    for (var i in obj) {
-	        if (obj[i] && obj[i] != null && obj[i] != undefined && obj[i] != 'null' && obj[i] != 'undefined' && $.trim(obj[i]) != '') {
+		var flag = true
+		for ( var i in obj) {
+			if (obj[i] && obj[i] != null && obj[i] != undefined
+					&& obj[i] != 'null' && obj[i] != 'undefined'
+					&& $.trim(obj[i]) != '') {
 
-	        } else {
-	            flag = false;
-	            break
-	        }
-	    }
-	    if (flag) {
-	        cb()
-	    } else {
-	        toastr.error("请填写完整表单")
-	    }
+			} else {
+				flag = false;
+				break
+			}
+		}
+		if (flag) {
+			cb()
+		} else {
+			toastr.error("请填写完整表单")
+		}
 	}
 </script>

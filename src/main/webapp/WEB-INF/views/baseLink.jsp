@@ -6,3 +6,5 @@
 <link href="${pageContext.request.contextPath}/css/style.css?v=4.1.0"
 	rel="stylesheet">
 	<link href="${pageContext.request.contextPath}/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+	<!-- Sweet Alert -->
+    <link href="${pageContext.request.contextPath}/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
