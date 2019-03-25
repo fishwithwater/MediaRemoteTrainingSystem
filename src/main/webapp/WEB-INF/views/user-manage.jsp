@@ -16,8 +16,7 @@
 <link
 	href="${pageContext.request.contextPath}/css/plugins/bootstrap-table/bootstrap-table.min.css"
 	rel="stylesheet">
-<link href="${pageContext.request.contextPath}/css/customer.css"
-	rel="stylesheet">
+
 </head>
 <body class="gray-bg top-navigation">
 
@@ -239,7 +238,6 @@
 			})
 		}
 		function addSubmit(){
-<<<<<<< HEAD
 			var data = formData('#addForm')
 			request({
 				url:'user-manage/create-user',
@@ -307,9 +305,6 @@
     				}
     			})
             });
-=======
-			
->>>>>>> 8337055c0546054e39079e94c8ef6aa5743b3577
 		}
 	</script>
 </body>

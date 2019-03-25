@@ -50,7 +50,7 @@ public class UserController {
 	@ResponseBody
 	public ResultDTO createUser(UserDTO user) {
 		ResultDTO res = new ResultDTO();
-<<<<<<< HEAD
+
 		
 		try {
 			UserDTO resUser = userService.addUser(user);
@@ -103,9 +103,6 @@ public class UserController {
 			res.exception(e);
 		}
 		
-=======
-		System.out.println(user);
->>>>>>> 8337055c0546054e39079e94c8ef6aa5743b3577
 		return res;
 	}
 	

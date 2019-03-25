@@ -21,6 +21,14 @@
 			<param-value>classpath:spring-mvc.xml</param-value>
 		</init-param>
 	</servlet>
+	<!-- 不拦截静态文件 -->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/js/*</url-pattern>
+        <url-pattern>/css/*</url-pattern>
+        <url-pattern>/images/*</url-pattern>
+        <url-pattern>/fonts/*</url-pattern>
+    </servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>springMVC</servlet-name>
 		<url-pattern>/</url-pattern>
